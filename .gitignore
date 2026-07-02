@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# dump de base de datos (no se sube al repo, ver README para configuracion)
+db/catalogos_mx.sql
