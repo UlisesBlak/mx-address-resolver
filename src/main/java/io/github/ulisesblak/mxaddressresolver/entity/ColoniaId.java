@@ -6,11 +6,17 @@ import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+
 @Embeddable
 public class ColoniaId implements Serializable {
 
     @Column(name = "clave", length = 4)
+    @JdbcTypeCode(SqlTypes.CHAR)
     private String clave;
+
 
     @Column(name = "cp", length = 6)
     private String cp;
