@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de dirección - México</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="tarjeta">
+        <h1>Dirección</h1>
+
+        <form id="formDireccion" novalidate>
+            <div class="campo">
+                <label for="cp">Código Postal</label>
+                <input type="text" id="cp" name="cp" maxlength="5" inputmode="numeric" required>
+                <span class="error" id="errorCp"></span>
+            </div>
+
+            <div class="fila">
+                <div class="campo">
+                    <label for="estado">Estado</label>
+                    <select id="estado" name="estado" required>
+                        <option value="">Seleccione...</option>
+                    </select>
+                    <span class="error" id="errorEstado"></span>
+                </div>
+
+                <div class="campo">
+                    <label for="municipio">Municipio</label>
+                    <select id="municipio" name="municipio" required disabled>
+                        <option value="">Seleccione el estado...</option>
+                    </select>
+                    <span class="error" id="errorMunicipio"></span>
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="campo">
+                    <label for="localidad">Localidad</label>
+                    <select id="localidad" name="localidad" required disabled>
+                        <option value="">Seleccione el estado...</option>
+                    </select>
+                    <span class="error" id="errorLocalidad"></span>
+                </div>
+
+                <div class="campo">
+                    <label for="colonia">Colonia</label>
+                    <select id="colonia" name="colonia" required disabled>
+                        <option value="">Seleccione...</option>
+                    </select>
+                    <span class="error" id="errorColonia"></span>
+                </div>
+            </div>
+
+            <div class="campo">
+                <label for="calleYNumero">Calle y número</label>
+                <input type="text" id="calleYNumero" name="calleYNumero" required>
+                <span class="error" id="errorCalleYNumero"></span>
+            </div>
+
+            <div class="mensaje" id="mensajeResultado"></div>
+
+            <button type="submit" id="btnContinuar">Continuar</button>
+        </form>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -23,8 +23,7 @@ public class DireccionService {
             MunicipioRepository municipioRepository,
             LocalidadRepository localidadRepository,
             ColoniaRepository coloniaRepository,
-            CodigoPostalRepository codigoPostalRepository
-    ) {
+            CodigoPostalRepository codigoPostalRepository) {
         this.estadoRepository = estadoRepository;
         this.municipioRepository = municipioRepository;
         this.localidadRepository = localidadRepository;
@@ -64,8 +63,16 @@ public class DireccionService {
                 .map(c -> new ColoniaDto(c.getId().getClave(), c.getDescripcion()))
                 .toList();
 
-        return new ResolucionCpResponse(cp, estadoDto, municipios, localidades, colonias);
+        return new ResolucionCpResponse(
+                cp,
+                estadoDto,
+                municipios,
+                localidades,
+                colonias,
+                codigoPostal.getMunicipio(),
+                codigoPostal.getLocalidad());
     }
+    
 
     public ValidacionResponse validarDireccion(DireccionValidacionRequest request) {
         Optional<CodigoPostal> codigoPostalOpt = codigoPostalRepository.findById(request.cp());

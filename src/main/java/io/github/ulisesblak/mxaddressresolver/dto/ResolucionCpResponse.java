@@ -7,6 +7,8 @@ public record ResolucionCpResponse(
         EstadoDto estado,
         List<MunicipioDto> municipios,
         List<LocalidadDto> localidades,
-        List<ColoniaDto> colonias
+        List<ColoniaDto> colonias,
+        String municipioSeleccionado,
+        String localidadSeleccionada
 ) {
 }
