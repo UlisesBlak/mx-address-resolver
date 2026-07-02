@@ -35,7 +35,13 @@ h1 {
 .fila {
     display: flex;
     gap: 16px;
+    flex-wrap: wrap;
 }
+
+.fila .campo {
+    min-width: 140px;
+}
+
 
 label {
     font-size: 13px;
@@ -44,14 +50,16 @@ label {
     color: #374151;
 }
 
-input, select {
+input,
+select {
     padding: 10px 12px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
     font-size: 15px;
 }
 
-input:disabled, select:disabled {
+input:disabled,
+select:disabled {
     background-color: #f3f4f6;
     color: #9ca3af;
 }
@@ -97,4 +105,19 @@ button:hover {
 button:disabled {
     background-color: #9ca3af;
     cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 16px 8px;
+    }
+
+    .tarjeta {
+        padding: 20px;
+    }
+
+    .fila {
+        flex-direction: column;
+        gap: 0;
+    }
 }
