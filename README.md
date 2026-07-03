@@ -65,7 +65,7 @@ Debería devolver `95748`.
 
 #### Opción B: PostgreSQL instalado directamente (sin contenedores)
 
-Si no cuentas con Podman/Docker (por ejemplo, si WSL2 no está disponible en tu entorno de Windows), puedes instalar PostgreSQL 17 nativamente:
+Si no cuentas con Podman/Docker (por ejemplo, si WSL2 no está disponible o presenta problemas en tu entorno de Windows), puedes instalar PostgreSQL 17 nativamente:
 
 1. Descarga e instala PostgreSQL 17 desde [postgresql.org/download](https://www.postgresql.org/download/)
 2. Durante la instalación, define una contraseña para el usuario `postgres` (usa `postgres` para que coincida con la configuración por defecto de este proyecto, o ajusta `application.properties` si usas otra)
@@ -83,6 +83,14 @@ Si no cuentas con Podman/Docker (por ejemplo, si WSL2 no está disponible en tu 
    psql -U postgres -d mx_address_resolver -c "SELECT COUNT(*) FROM codigo_postal;"
 ```
    Debería devolver `95748`.
+
+> **Troubleshooting (Windows) — error de codificación al cargar el catálogo:** si aparece un error como `carácter con secuencia de bytes 0x81 en codificación «WIN1252» no tiene equivalente en la codificación «UTF8»`, el cliente `psql` de Windows está interpretando el archivo con la codificación de la terminal (WIN1252) en vez de UTF-8, aunque el archivo y la base de datos sí estén en UTF-8 correctamente. Antes de cargar el `.sql`, ejecuta en la misma terminal:
+> ```cmd
+> set PGCLIENTENCODING=UTF8
+> ```
+> y vuelve a correr el comando de carga (paso 4). Esta variable solo aplica a la sesión de terminal actual.
+
+> **Troubleshooting (Windows) — el instalador no agrega `psql` al PATH:** si después de instalar PostgreSQL el comando `psql --version` no se reconoce, agrega manualmente `C:\Program Files\PostgreSQL\17\bin` a la variable de entorno `Path` del sistema (Panel de control → Variables de entorno → Variables del sistema → `Path` → Editar → Nuevo), y abre una terminal nueva.
 
 ### 4. Ejecutar la aplicación
 
@@ -126,3 +134,4 @@ Estos valores coinciden con las credenciales por defecto definidas en `podman-co
 - **`spring.jpa.open-in-view=false`**: se desactiva explícitamente para evitar mantener conexiones de base de datos abiertas durante el renderizado de la respuesta.
 - **Frontend servido por Spring Boot** (mismo origen): evita configuración de CORS y permite levantar toda la aplicación con un solo comando.
 - **Se documentan dos vías de base de datos** (contenedores y nativa): asegura que el proyecto pueda evaluarse aunque el entorno no tenga Podman/Docker/WSL2 disponible o configurado correctamente.
+- **Inyección de dependencias por constructor**: tanto `DireccionService` como `DireccionController` reciben sus dependencias vía constructor en lugar de `@Autowired` en campos. Con un único constructor, Spring la infiere automáticamente; este enfoque mantiene las dependencias explícitas, inmutables (`final`) y facilita las pruebas con mocks.
